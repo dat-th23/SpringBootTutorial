@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.18/summernote-bs4.min.css"/>
+</head>
+<head th:replace="/fragments/fragments-be::head"></head>
+
+<body id="page-top">
+
+<!-- Page Wrapper -->
+<div id="wrapper">
+
+    <!-- Sidebar -->
+    <div th:replace="/fragments/fragments-be::sidebar"></div>
+    <!-- End of Sidebar -->
+
+    <!-- Content Wrapper -->
+    <div id="content-wrapper" class="d-flex flex-column">
+
+        <!-- Main Content -->
+        <div id="content">
+
+            <!-- Topbar -->
+            <div th:replace="/fragments/fragments-be::topbar"></div>
+            <!-- End of Topbar -->
+
+            <!-- Begin Page Content -->
+            <div class="container-fluid">
+
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="breadcum-items">
+                                        <span class="item"><a th:href="@{/admin/books}"
+                                                              href="index.html">Book list /</a></span>
+                            <span class="item colored" th:text="${title}"></span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card shadow mb-4">
+                    <div class="card-body">
+
+                        <!-- Page Heading -->
+                        <h1 class="h3 mb-4 text-gray-800 text-center" th:text="${title}"></h1>
+                        <!-- Add Modal: Add new book -->
+                        <form th:action="@{/admin/books/edit/{id}(id =${book.id})}" method="post" th:object="${book}"
+                              enctype="multipart/form-data" class="pl-5 pr-5">
+                            <div class="row mb-4">
+                                <div class="col">
+                                    <div class="form-outline">
+                                        <label class="form-label" for="form6Example1">Title</label>
+                                        <input type="text" id="form6Example1" class="form-control" th:field="*{title}"/>
+                                    </div>
+                                </div>
+                                <span th:if="${#fields.hasErrors('title')}" th:errors="*{title}"></span>
+                                <div class="col">
+                                    <div class="form-outline">
+                                        <label class="form-label" for="form6Example2">Author</label>
+                                        <input type="text" id="form6Example2" class="form-control"
+                                               th:field="*{author}"/>
+                                    </div>
+                                </div>
+                                <span th:if="${#fields.hasErrors('author')}" th:errors="*{author}"></span>
+                            </div>
+
+                            <div class="row mb-4">
+                                <div class="col">
+                                    <div class="form-outline">
+                                        <label class="form-label" for="formPublisher">Publisher</label>
+                                        <input type="text" id="formPublisher" class="form-control"
+                                               th:field="*{publisher}"/>
+                                    </div>
+                                </div>
+                                <span th:if="${#fields.hasErrors('publisher')}" th:errors="*{publisher}"></span>
+                                <div class="col">
+                                    <div class="form-outline">
+                                        <label class="form-label" for="formSubject">Subject</label>
+                                        <input type="text" id="formSubject" class="form-control" th:field="*{subject}"/>
+                                    </div>
+                                </div>
+                                <span th:if="${#fields.hasErrors('subject')}" th:errors="*{subject}"></span>
+                            </div>
+
+                            <!-- Text input -->
+                            <div class="row mb-4">
+                                <div class="col">
+                                    <div class="form-outline">
+                                        <label class="form-label" for="formLanguage">Language</label>
+                                        <input type="text" id="formLanguage" class="form-control"
+                                               th:field="*{language}"/>
+                                    </div>
+                                </div>
+                                <span th:if="${#fields.hasErrors('language')}" th:errors="*{language}"></span>
+                                <div class="col">
+                                    <div class="form-outline">
+                                        <label class="form-label" for="formAmount">Amount</label>
+                                        <input type="number" th:min="0" id="formAmount" class="form-control" th:field="*{amount}"/>
+                                    </div>
+                                </div>
+                                <span th:if="${#fields.hasErrors('amount')}" th:errors="*{amount}"></span>
+                            </div>
+
+                            <!-- Number input -->
+                            <div class="row mb-4">
+                                <div class="col">
+                                    <div class="form-outline">
+                                        <label class="form-label" for="formPrice">Price</label>
+                                        <input type="number" th:min="0" id="formPrice" class="form-control" th:field="*{price}"/>
+                                    </div>
+                                </div>
+                                <span th:if="${#fields.hasErrors('price')}" th:errors="*{price}"></span>
+                                <div class="col">
+                                    <div class="form-outline">
+                                        <label class="form-label" for="formBorrowPrice">Borrow Price</label>
+                                        <input type="number" th:min="0" id="formBorrowPrice" class="form-control"
+                                               th:field="*{borrowPrice}"/>
+                                    </div>
+                                </div>
+                                <span th:if="${#fields.hasErrors('borrowPrice')}" th:errors="*{borrowPrice}"></span>
+                            </div>
+
+                            <div class="row mb-4">
+                                <div class="col">
+                                    <label class="col-md-4 control-label" for="categories">Category</label>
+                                    <div class="col-md-4">
+                                        <select id="categories" th:field="*{category}" name="categories"
+                                                class="form-control" style="width:200px;">
+                                            <option th:value="null">-SELECT-</option>
+                                            <option th:each="category : ${categories}"
+                                                    th:value="${category.categoryId}"
+                                                    th:text="${category.name}">
+                                            </option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col">
+                                    <label for="recipient-status" class="col-md-4 control-label">Status</label>
+                                    <div class="col-md-4">
+                                        <select th:field="*{status}" id="recipient-status" class="form-control"
+                                                style="width:200px;">
+                                            <option th:value="null">-SELECT-</option>
+                                            <option th:each="status : ${T(com.library.entity.Book.BookStatus).values()}"
+                                                    th:value="${status}"
+                                                    th:text="${status.name()}"></option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form-outline mb-4">
+                                <label for="imageBook" class="col-form-label">Image:</label>
+                                <img style="height: 90px; width: 90px;" th:src="*{'data:image/jpeg;base64,' + image}">
+                                <input id="imageBook" name="imageBook" class="form-control-file border" type="file">
+                            </div>
+                            <span th:if="${#fields.hasErrors('image')}" th:errors="*{image}"></span>
+
+
+                            <div class="form-outline mb-4">
+                                <label class="form-label" for="description">Description</label>
+                                <textarea type="text" class="form-control" id="description" rows="7"
+                                          th:field="*{description}"></textarea>
+                            </div>
+                            <span th:if="${#fields.hasErrors('description')}" th:errors="*{description}"></span>
+                            <div class="form-group">
+                                <a type="button" th:href="@{/admin/books}" class="btn btn-secondary" data-dismiss="modal">Close
+                                </a>
+                                <button type="submit" class="btn btn-primary">Save</button>
+                            </div>
+                        </form>
+
+                    </div>
+                </div>
+            </div>
+            <!-- /.container-fluid -->
+
+        </div>
+        <!-- End of Main Content -->
+
+        <!-- Footer -->
+        <div th:replace="/fragments/fragments-be::footer"></div>
+        <!-- End of Footer -->
+
+    </div>
+    <!-- End of Content Wrapper -->
+
+</div>
+<!-- End of Page Wrapper -->
+
+<!-- Scroll to Top Button-->
+<a class="scroll-to-top rounded" href="#page-top">
+    <i class="fas fa-angle-up"></i>
+</a>
+
+<!-- Logout Modal-->
+<div th:replace="/fragments/fragments-be::logoutModal"></div>
+<!-- Bootstrap core JavaScript-->
+<div th:replace="/fragments/fragments-be::script"></div>
+
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.18/summernote-bs4.min.js"></script>
+<script>
+    $(document).ready(function () {
+        $('#description').summernote();
+    });
+</script>
+
+</body>
+
+</html>

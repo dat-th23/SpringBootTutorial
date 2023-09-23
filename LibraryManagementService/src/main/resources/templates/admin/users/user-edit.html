@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="https://www.thymeleaf.org/">
+<head th:replace="/fragments/fragments-be::head"></head>
+
+<body id="page-top">
+
+<!-- Page Wrapper -->
+<div id="wrapper">
+
+    <!-- Sidebar -->
+    <ul th:replace="/fragments/fragments-be::sidebar"></ul>
+    <!-- End of Sidebar -->
+
+    <!-- Content Wrapper -->
+    <div id="content-wrapper" class="d-flex flex-column">
+
+        <!-- Main Content -->
+        <div id="content">
+
+            <!-- Topbar -->
+            <nav th:replace="/fragments/fragments-be::topbar"></nav>
+            <!-- End of Topbar -->
+
+            <!-- Begin Page Content -->
+            <div class="container-fluid">
+
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="breadcum-items">
+                                        <span class="item"><a th:href="@{/admin/users}"
+                                                              href="index.html">User list /</a></span>
+                            <span class="item colored" th:text="${title}"></span>
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="card shadow mb-4">
+                    <div class="card-body">
+
+                        <!-- Page Heading -->
+                        <h1 class="h3 mb-4 text-gray-800 text-center" th:text="${title}"></h1>
+
+                        <!-- Add Modal: Add new category -->
+                        <form th:action="@{/admin/users/edit/{id}(id = ${user.id})}" method="post" th:object="${user}"
+                              enctype="multipart/form-data" class="pl-5 pr-5">
+                            <div class="form-row mb-4">
+                                <div class="col">
+                                    <label for="recipient-uname" class="col-form-label">First name:</label>
+                                    <input type="text" class="form-control" th:field="*{firstname}"
+                                           id="recipient-uname" required>
+                                </div>
+                                <div class="col">
+                                    <label for="recipient-name" class="col-form-label">Last name:</label>
+                                    <input type="text" class="form-control" th:field="*{lastname}"
+                                           id="recipient-name" required>
+                                </div>
+                            </div>
+
+                            <div class="form-row mb-4">
+                                <div class="col">
+                                    <label for="recipient-email" class="col-form-label">Email:</label>
+                                    <input type="email" class="form-control" th:field="*{email}"
+                                           id="recipient-email" readonly>
+                                </div>
+                                <div class="col">
+                                    <label for="recipient-ps" class="col-form-label">Password:</label>
+                                    <input type="password" class="form-control" th:field="*{password}"
+                                           id="recipient-ps" placeholder="*********" readonly>
+                                </div>
+                            </div>
+
+                            <div class="form-row mb-4">
+                                <div class="col">
+                                    <label for="recipient-address" class="col-form-label">Address:</label>
+                                    <input type="text" class="form-control" th:field="*{address}"
+                                           id="recipient-address" required>
+                                </div>
+                                <div class="col">
+                                    <label for="recipient-pn" class="col-form-label">Phone number:</label>
+                                    <input type="text" class="form-control" th:field="*{phone}"
+                                           id="recipient-pn" required>
+                                </div>
+                            </div>
+
+                            <div class="form-row mb-4">
+                                <div class="col">
+                                    <label for="recipient-status" class="col-form-label">Status:</label>
+                                    <select th:field="*{status}" id="recipient-status" class="form-control"
+                                            name="status">
+                                        <option th:each="status : ${T(com.library.entity.User.AccountStatus).values()}"
+                                                th:value="${status}" th:text="${status}"></option>
+                                    </select>
+                                </div>
+
+                                <div class="col">
+                                    <label for="recipient-vw" class="col-form-label">Virtual Wallet:</label>
+                                    <input type="text" class="form-control" th:field="*{virtualWallet}"
+                                           id="recipient-vw">
+                                </div>
+                            </div>
+
+
+                            <div class="form-row">
+                                <label for="imageUser" class="col-form-label">Avatar:</label>
+                                <img style="height: 90px; width: 90px;" th:src="*{'data:image/jpeg;base64,' + image}">
+                                <input id="imageUser" name="imageUser" class="form-control-file border" type="file">
+                            </div>
+
+                            <div class="form-group mt-5">
+                                <a type="button" th:href="@{/admin/users}" class="btn btn-secondary"
+                                   data-dismiss="modal">Close
+                                </a>
+                                <button type="submit" class="btn btn-primary">Save</button>
+                            </div>
+
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <!-- /.container-fluid -->
+
+        </div>
+        <!-- End of Main Content -->
+
+        <!-- Footer -->
+        <div th:replace="/fragments/fragments-be::footer"></div>
+        <!-- End of Footer -->
+
+    </div>
+    <!-- End of Content Wrapper -->
+
+</div>
+<!-- End of Page Wrapper -->
+
+<!-- Scroll to Top Button-->
+<a class="scroll-to-top rounded" href="#page-top">
+    <i class="fas fa-angle-up"></i>
+</a>
+
+<!-- Logout Modal-->
+<div th:replace="/fragments/fragments-be::logoutModal"></div>
+<!-- Bootstrap core JavaScript-->
+<div th:replace="/fragments/fragments-be::script"></div>
+
+</body>
+
+</html>
