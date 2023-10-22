@@ -1,4 +1,4 @@
-package java.com.security.entity;
+package data.com.security.entity;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -17,6 +17,6 @@ import java.util.UUID;
 public class Role {
     @Id
     @GeneratedValue(strategy =  GenerationType.AUTO)
-    private UUID id;
+    private Long id;
     private String name;
 }

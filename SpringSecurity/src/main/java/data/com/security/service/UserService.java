@@ -1,7 +1,8 @@
-package java.com.security.service;
+package data.com.security.service;
 
-import java.com.security.entity.Role;
-import java.com.security.entity.User;
+import data.com.security.entity.User;
+import data.com.security.entity.Role;
+
 import java.util.List;
 
 public interface UserService {

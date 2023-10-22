@@ -1,5 +1,7 @@
-package java.com.security.service.impl;
+package data.com.security.service.impl;
 
+import data.com.security.entity.User;
+import data.com.security.service.UserService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -10,11 +12,10 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
-import java.com.security.entity.Role;
-import java.com.security.entity.User;
-import java.com.security.repository.RoleRepository;
-import java.com.security.repository.UserRepository;
-import java.com.security.service.UserService;
+import data.com.security.entity.Role;
+import data.com.security.repository.RoleRepository;
+import data.com.security.repository.UserRepository;
+
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
